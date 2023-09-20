@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Home - LovingIsSharing App{% endblock %}
+
+{% block content %}
+<div class="jumbotron">
+    <h1 class="display-4">Welcome to LovingIsSharing!</h1>
+    <p class="lead">Your go-to app for managing tasks and sharing responsibilities with your flatmates.</p>
+    {% if current_user.is_authenticated %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('main') }}" role="button">Get Started</a>
+    {% else %}
+    <a class="btn btn-primary btn-lg" href="{{ url_for('register') }}" role="button">Sign Up</a>
+    <a class="btn btn-secondary btn-lg" href="{{ url_for('login') }}" role="button">Log In</a>
+    {% endif %}
+</div>
+    <div class="row">
+        <div class="col-md-8">
+            <h1 class="my-4">About LovingIsSharing</h1>
+            <p>Welcome to LovingIsSharing, where we believe in making shared living spaces harmonious and organized. Our mission is to simplify the management of tasks and responsibilities among flatmates, making cohabitation a breeze.</p>
+            <p>At LovingIsSharing, we understand the challenges of shared living arrangements. Whether you're in a college dorm, a shared apartment, or a co-living space, coordinating tasks and chores can sometimes be stressful. That's where we come in!</p>
+            <p>Our user-friendly platform allows you to:</p>
+            <ul>
+                <li>Assign tasks and responsibilities to flatmates.</li>
+                <li>Track the progress of tasks and mark them as done.</li>
+                <li>Stay organized with a shared to-do list and calendar.</li>
+            </ul>
+            <p>We're committed to making your shared living experience enjoyable and hassle-free. With LovingIsSharing, you can focus on what truly matters—building meaningful connections with your flatmates.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            {% for message in messages %}
+                <p>{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    <h1>Welcome, {{ current_user.username }}!</h1>
+    <h2>Your Flatmates:</h2>
+    <ul class="list-group mb-4">
+        {% for flatmate in flatmates %}
+            <li class="list-group-item">{{ flatmate.username }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Your Tasks:</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Task</th>
+                <th>Description</th>
+                <th>Assigned To</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task_info in task_data %}
+            <tr data-task-id="{{ task_info.id }}">
+                <td>{{ task_info.title }}</td>
+                <td>{{ task_info.description }}</td>
+                <td>{{ task_info.assigned_to }}</td>
+                <td>
+                    <span id="task-status-{{ task_info.id }}" class="badge {% if task_info.done %}bg-success{% else %}bg-danger{% endif %}">
+                        {% if task_info.done %}Done{% else %}Not Done{% endif %}
+                    </span>
+                </td>
+                <td>
+                    <button class="btn btn-success mark-done-btn" data-task-id="{{ task_info.id }}">
+                        Mark Done
+                    </button>
+                    <form method="POST" action="/delete_task/{{ task_info.id }}">
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <h2>Add a Task:</h2>
+    <form method="POST" action="/add_task" class="mb-4">
+        {{ form.csrf_token }}
+        {{ form.hidden_tag() }}
+        <div class="mb-3">
+            <label id="title" class="form-label">Title</label>
+            {{ form.title(id="title", class="form-control", required=true) }}
+        </div>
+        <div class="mb-3">
+            <label id="description" class="form-label">Description</label>
+            {{ form.description(id="description", class="form-control") }}
+        </div>
+        <div class="mb-3">
+            <label id="assigned_to" class="form-label">Assign To</label>
+            {{ form.assigned_to(id="assigned_to", class="form-control", required=true) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Task</button>
+    </form>
+
+    <h2>Link with Your Flatmate</h2>
+    <form method="POST" action="/link_flatmate" class="mb-4">
+        {{ link_form.csrf_token }}
+        {{ link_form.hidden_tag() }}
+        <div class="mb-3">
+            <label id="link_code" class="form-label">Link Code</label>
+            {{ link_form.link_code(id="link_code", class="form-control", required=true) }}
+        </div>
+        <button type="submit" class="btn btn-primary">Link Flatmate</button>
+    </form>
+    <!-- Add a section to display the user's link code -->
+    <h2>Your Link Code:</h2>
+    <p><b>{{ current_user.link_code }}</b></p>
+
+{% endblock %}
+{% block extra_scripts %}
+<script>
+        function toggleTaskStatus(taskId) {
+            const statusElement = document.getElementById(`task-status-${taskId}`);
+            const markDoneButton = document.querySelector(`[data-task-id="${taskId}"]`);
+
+            // Toggle the status text and class
+            if (statusElement.textContent === 'Done') {
+                statusElement.textContent = 'Not Done';
+                statusElement.classList.remove('bg-success');
+                statusElement.classList.add('bg-danger');
+                markDoneButton.classList.remove('btn-danger');
+                markDoneButton.classList.add('btn-success');
+            } else {
+                statusElement.textContent = 'Done';
+                statusElement.classList.remove('bg-danger');
+                statusElement.classList.add('bg-success');
+                markDoneButton.classList.remove('btn-success');
+                markDoneButton.classList.add('btn-danger');
+            }
+        }
+    </script>
+{% endblock %}
+

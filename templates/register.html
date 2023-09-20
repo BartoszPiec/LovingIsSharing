@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% from "bootstrap5/form.html" import render_form %}
+{% block title %}Register - Flatmate App{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <h2>Register</h2>
+        <form method="POST">
+            {{ render_form(form) }}
+        </form>
+    </div>
+</div>
+{% endblock %}

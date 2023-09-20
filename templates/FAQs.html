@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-5 mb-4">Frequently Asked Questions (FAQs)</h1>
+
+    <div class="accordion" id="faqAccordion">
+        <!-- FAQ Item 1 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq1">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse1" aria-expanded="true" aria-controls="faqCollapse1">
+                    1. What is LovingIsSharing?
+                </button>
+            </h2>
+            <div id="faqCollapse1" class="accordion-collapse collapse show" aria-labelledby="faq1" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    LovingIsSharing is a web application designed to help flatmates and roommates manage tasks and responsibilities
+                    in a shared living space more efficiently. It allows you to create, assign, and track tasks among the members of
+                    your household.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 2 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq2">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse2" aria-expanded="false" aria-controls="faqCollapse2">
+                    2. How can I get started?
+                </button>
+            </h2>
+            <div id="faqCollapse2" class="accordion-collapse collapse" aria-labelledby="faq2" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To get started, you need to <a href="{{ url_for('register') }}">register</a> for an account. After
+                    registering and logging in, you can create your household and start inviting your flatmates.
+                    Once everyone is linked, you can begin assigning and managing tasks.
+                </div>
+            </div>
+        </div>
+
+         <!-- FAQ Item 3 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq3">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse3" aria-expanded="false" aria-controls="faqCollapse3">
+                    3. How do I assign tasks to my flatmates?
+                </button>
+            </h2>
+            <div id="faqCollapse3" class="accordion-collapse collapse" aria-labelledby="faq3" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    To assign a task to one of your flatmates, go to the "Main" page after logging in. Use the "Add Task"
+                    form to create a new task, and select the flatmate you want to assign it to from the dropdown list.
+                    The assigned task will appear in their task list.
+                </div>
+            </div>
+        </div>
+
+        <!-- FAQ Item 4 -->
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="faq4">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse4" aria-expanded="false" aria-controls="faqCollapse4">
+                    4. Can I mark a task as completed?
+                </button>
+            </h2>
+            <div id="faqCollapse4" class="accordion-collapse collapse" aria-labelledby="faq4" data-bs-parent="#faqAccordion">
+                <div class="accordion-body">
+                    Yes, you can mark a task as completed. If you are the assigned user, you can click on the task
+                    on the "Main" page and mark it as done.
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- Contact Us Section -->
+    <div class="mt-5">
+        <h2>Contact Us</h2>
+        <p>If you have additional questions or need assistance, please don't hesitate to <a href="{{ url_for('contact') }}">contact us</a>. We're here to help!</p>
+    </div>
+</div>
+{% endblock %}

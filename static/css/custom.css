@@ -1,0 +1,64 @@
+/* Define the color variables */
+:root {
+    --primary-color: #F78CA2;      /* Primary color for the navbar */
+    --secondary-color: #3D0C11;    /* Secondary color for buttons and links */
+    --tertiary-color: #3D0C11;     /* Tertiary color for hover effects */
+    --background-color: #F9DEC9;   /* Background color for the body */
+}
+
+/* Apply the color variables to various elements */
+body {
+    background-color: var(--background-color);
+}
+
+/* Navbar styles */
+
+#navhead {
+    background-color: var(--primary-color);
+}
+
+#navbar {
+    background-color: var(--primary-color);
+    color: var(--quinary-color); /* Set the text color for navbar */
+}
+
+.nav-link {
+    color: var(--quinary-color); /* Text color for navbar links */
+}
+
+.nav-link:hover {
+    color: var(--tertiary-color); /* Hover color for navbar links */
+}
+
+/* Button styles */
+.btn-primary {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-primary:hover {
+    background-color: var(--tertiary-color);
+    border-color: var(--tertiary-color);
+}
+
+.btn-outline-primary {
+    color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+    color: var(--quinary-color);
+}
+
+/* Text styles */
+h1, h2, h3, h4, h5, h6 {
+    color: var(--primary-color);
+}
+
+.link-body-emphasis {
+    color: var(--secondary-color);
+}
+
+/* Customize other elements as needed */
