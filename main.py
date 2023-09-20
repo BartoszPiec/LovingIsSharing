@@ -1,4 +1,4 @@
-from flask import Flask, render_template, redirect, url_for, flash, request
+from flask import Flask, render_template, redirect, url_for, flash, request, jsonify
 from flask_bootstrap import Bootstrap5
 from flask_login import UserMixin, LoginManager, login_user, current_user, logout_user, login_required
 from flask_sqlalchemy import SQLAlchemy
@@ -6,7 +6,6 @@ from werkzeug.security import generate_password_hash, check_password_hash
 from random import choice
 from sqlalchemy import ForeignKey, Table, Integer, Column
 from sqlalchemy.orm import relationship
-from flask import jsonify
 import string
 import forms
 import smtplib
@@ -15,14 +14,15 @@ import os
 
 
 
-EMAIL_PASSWORD = "bildznatuvlybkne"
+EMAIL_PASSWORD = os.environ.get("EMAIL_PASS")
 EMAIL_ADDRESS = "lovingissharingcontact@gmail.com"
+
 
 
 app = Flask(__name__)
 Bootstrap5(app)
-app.config['SECRET_KEY'] = '8BYkEfBA6O6donzWlSihBXox7C0sKR6b'
-app.config['SQLALCHEMY_DATABASE_URI'] = "sqlite:///Users.db"
+app.config['SECRET_KEY'] = os.environ.get("FLASK_KEY")
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("SQL_KEY")
 db = SQLAlchemy(app)
 login_manager = LoginManager()
 login_manager.init_app(app)

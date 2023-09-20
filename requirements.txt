@@ -10,6 +10,7 @@ flask-bootstrap5==0.1.dev1
 Flask-Login==0.6.2
 Flask-SQLAlchemy==3.1.1
 Flask-WTF==1.1.1
+gunicorn==21.2.0
 greenlet==2.0.2
 importlib-metadata==6.8.0
 itsdangerous==2.1.2
