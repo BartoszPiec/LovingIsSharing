@@ -156,7 +156,6 @@ def main():
     # Include the current user in the list of flatmates
     all_flatmates = user_flatmates + [current_user]
 
-
     # Get tasks assigned to the current user and their flatmates
     tasks = FlatmateTask.query.filter(FlatmateTask.assigned_to.in_([user.id for user in all_flatmates])).all()
 
@@ -190,6 +189,8 @@ def main():
 @app.route('/link_flatmate', methods=["POST"])
 @login_required
 def link_flatmate():
+
+    # Linking users and checking if they exist
     link_form = forms.LinkFlatmateForm()
 
     if link_form.validate_on_submit():
@@ -216,8 +217,8 @@ def link_flatmate():
 def add_task():
 
 
+    # Adding task to the list
     form = forms.TaskForm()
-
 
     user_flatmates = current_user.shared_flatmates
     print(user_flatmates)
@@ -242,19 +243,12 @@ def add_task():
 @app.route('/mark_done/<int:task_id>', methods=['POST'])
 @login_required
 def mark_done(task_id):
+
+    # Marking task as done
     task = db.session.get(FlatmateTask, task_id)
 
     if not task:
         return jsonify({'success': False, 'error': 'Task not found'})
-
-    if task.assigned_to != current_user.id:
-        if task.title == "Cook dinner":
-            # Logic for handling the "making dinner" task
-            dishes_task = FlatmateTask.query.filter_by(title="Wash dishes", assigned_to=current_user.id).first()
-            if dishes_task:
-                return jsonify({'success': False, 'error': 'You must first complete "Wash dishes" task.'})
-
-        return jsonify({'success': False, 'error': "Sorry that's not your task"})  # Updated error message
 
     task.done = not task.done
     db.session.commit()  # Commit the changes to the database
@@ -265,6 +259,9 @@ def mark_done(task_id):
 @app.route('/delete_task/<int:task_id>', methods=['POST'])
 @login_required
 def delete_task(task_id):
+
+
+    # Deleting task from the list
     task = db.session.get(FlatmateTask, task_id)
 
     if not task:
@@ -283,6 +280,7 @@ def delete_task(task_id):
 def faq_page():
 
     return render_template("FAQs.html")
+
 
 @app.route('/features')
 def features():
@@ -335,4 +333,4 @@ def logout():
 
 
 if __name__ == "__main__":
-    app.run(debug=False)
+    app.run(debug=True)
